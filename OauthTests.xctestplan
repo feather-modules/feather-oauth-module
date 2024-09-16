@@ -1,0 +1,41 @@
+{
+  "configurations" : [
+    {
+      "id" : "2BE29DEB-6099-46AE-8111-70658AE25C30",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "UserInterfaceKitTests",
+        "name" : "UserInterfaceKitTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "UserKitTests",
+        "name" : "UserKitTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "UserServerKitTests",
+        "name" : "UserServerKitTests"
+      }
+    }
+  ],
+  "version" : 1
+}
