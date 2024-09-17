@@ -69,6 +69,12 @@ struct OauthFlowController: OauthFlowInterface {
     func getCode(_ request: Oauth.Flow.AuthorizationPostRequest) async throws
         -> String
     {
+        
+        // check if userId is empty
+        if request.userId.isEmpty {
+            throw Oauth.Error.unauthorizedClient
+        }
+        
         // create and save new code
         let detail = try await oauth.authorizationCode.create(
             .init(

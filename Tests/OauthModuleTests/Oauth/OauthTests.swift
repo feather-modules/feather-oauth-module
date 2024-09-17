@@ -23,7 +23,7 @@ final class OauthTests: TestCase {
                 request.redirectUri,
                 request.scope
             )
-            XCTFail("Test should fail with Oauth.FlowError")
+            XCTFail("Test should fail with Oauth.Error")
         }
         catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 0"))
@@ -49,7 +49,7 @@ final class OauthTests: TestCase {
                 request.redirectUri,
                 request.scope
             )
-            XCTFail("Test should fail with Oauth.FlowError")
+            XCTFail("Test should fail with Oauth.Error")
         }
         catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 1"))
@@ -75,7 +75,7 @@ final class OauthTests: TestCase {
                 request.redirectUri,
                 request.scope
             )
-            XCTFail("Test should fail with Oauth.FlowError")
+            XCTFail("Test should fail with Oauth.Error")
         }
         catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 3"))
@@ -124,7 +124,7 @@ final class OauthTests: TestCase {
                 request.scope
             )
             _ = try await module.oauthFlow.getCode(request)
-            XCTFail("Test should fail with Oauth.FlowError")
+            XCTFail("Test should fail with Oauth.Error")
         }
         catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 0"))
@@ -154,7 +154,7 @@ final class OauthTests: TestCase {
                 request.scope
             )
             _ = try await module.oauthFlow.getCode(request)
-            XCTFail("Test should fail with Oauth.FlowError")
+            XCTFail("Test should fail with Oauth.Error")
         }
         catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 1"))
@@ -163,6 +163,36 @@ final class OauthTests: TestCase {
             XCTFail("\(error)")
         }
     }
+    
+    func testGetCodeEmptyAccount() async throws {
+            let client = try await addTestClient(.app)
+
+            let request = Oauth.Flow.AuthorizationPostRequest(
+                clientId: client.id.rawValue,
+                redirectUri: client.redirectUri!,
+                scope: "profile",
+                state: "state",
+                userId: ""
+            )
+
+            do {
+                _ = try await module.oauthFlow.check(
+                    nil,
+                    request.clientId,
+                    nil,
+                    request.redirectUri,
+                    request.scope
+                )
+                _ = try await module.oauthFlow.getCode(request)
+                XCTFail("Test should fail with Oauth.Error")
+            }
+            catch let error as Oauth.Error {
+                XCTAssertEqual(true, error.localizedDescription.contains("error 6"))
+            }
+            catch {
+                XCTFail("\(error)")
+            }
+        }
 
     func testGetCode() async throws {
         let client = try await addTestClient(.app)
@@ -213,7 +243,7 @@ final class OauthTests: TestCase {
                 nil
             )
             _ = try await module.oauthFlow.getJWT(request, userData: nil)
-            XCTFail("Test should fail with Oauth.FlowError")
+            XCTFail("Test should fail with Oauth.Error")
         }
         catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 0"))
@@ -248,7 +278,7 @@ final class OauthTests: TestCase {
                 nil
             )
             _ = try await module.oauthFlow.getJWT(request, userData: nil)
-            XCTFail("Test should fail with Oauth.FlowError")
+            XCTFail("Test should fail with Oauth.Error")
         }
         catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 1"))
@@ -283,7 +313,7 @@ final class OauthTests: TestCase {
                 nil
             )
             _ = try await module.oauthFlow.getJWT(request, userData: nil)
-            XCTFail("Test should fail with Oauth.FlowError")
+            XCTFail("Test should fail with Oauth.Error")
         }
         catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 4"))
@@ -341,7 +371,7 @@ final class OauthTests: TestCase {
                 request.scope
             )
             _ = try await module.oauthFlow.getJWT(request, userData: nil)
-            XCTFail("Test should fail with Oauth.FlowError")
+            XCTFail("Test should fail with Oauth.Error")
         }
         catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 0"))
@@ -372,7 +402,7 @@ final class OauthTests: TestCase {
                 request.scope
             )
             _ = try await module.oauthFlow.getJWT(request, userData: nil)
-            XCTFail("Test should fail with Oauth.FlowError")
+            XCTFail("Test should fail with Oauth.Error")
         }
         catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 0"))
@@ -403,7 +433,7 @@ final class OauthTests: TestCase {
                 request.scope
             )
             _ = try await module.oauthFlow.getJWT(request, userData: nil)
-            XCTFail("Test should fail with Oauth.FlowError")
+            XCTFail("Test should fail with Oauth.Error")
         }
         catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 3"))
