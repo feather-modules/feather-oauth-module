@@ -21,7 +21,7 @@ extension Oauth.AuthorizationCode {
             case codeChallengeMethod = "code_challenge_method"
         }
 
-        public static let tableName = "user_authorization_code"
+        public static let tableName = "oauth_authorization_code"
         public static let columnNames = CodingKeys.self
         public static let keyName = Model.ColumnNames.id
 
