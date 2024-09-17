@@ -13,27 +13,17 @@
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "UserInterfaceKitTests",
-        "name" : "UserInterfaceKitTests"
+        "identifier" : "OauthModuleKitTests",
+        "name" : "OauthModuleKitTests"
       }
     },
     {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "UserKitTests",
-        "name" : "UserKitTests"
-      }
-    },
-    {
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "UserServerKitTests",
-        "name" : "UserServerKitTests"
+        "identifier" : "OauthModuleTests",
+        "name" : "OauthModuleTests"
       }
     }
   ],
