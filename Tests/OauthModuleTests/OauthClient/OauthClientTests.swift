@@ -5,8 +5,8 @@
 //
 
 import FeatherModuleKit
-import UserModule
-import UserModuleKit
+import OauthModule
+import OauthModuleKit
 import XCTest
 
 final class OauthClientTests: TestCase {
@@ -15,7 +15,7 @@ final class OauthClientTests: TestCase {
         let roleDetail = try await module.oauthRole.create(
             .mock()
         )
-        let input = User.OauthClient.Create(
+        let input = Oauth.Client.Create(
             name: "name",
             type: .app,
             redirectUri: "redirectUri",
@@ -38,7 +38,7 @@ final class OauthClientTests: TestCase {
         let roleDetail = try await module.oauthRole.create(
             .mock()
         )
-        let input = User.OauthClient.Create(
+        let input = Oauth.Client.Create(
             name: "name",
             type: .app,
             redirectUri: "redirectUri",
@@ -59,7 +59,7 @@ final class OauthClientTests: TestCase {
     }
 
     func testList() async throws {
-        let input = User.OauthClient.Create(
+        let input = Oauth.Client.Create(
             name: "name",
             type: .app,
             redirectUri: "redirectUri",
@@ -69,7 +69,7 @@ final class OauthClientTests: TestCase {
             roleKeys: nil
         )
 
-        let input2 = User.OauthClient.Create(
+        let input2 = Oauth.Client.Create(
             name: "name2",
             type: .app,
             redirectUri: "redirectUri",
@@ -82,7 +82,7 @@ final class OauthClientTests: TestCase {
         let _ = try await module.oauthClient.create(input)
         let _ = try await module.oauthClient.create(input2)
         let list = try await module.oauthClient.list(
-            User.OauthClient.List.Query(
+            Oauth.Client.List.Query(
                 search: nil,
                 sort: .init(by: .name, order: .asc),
                 page: .init()
@@ -92,7 +92,7 @@ final class OauthClientTests: TestCase {
     }
 
     func testPatch() async throws {
-        let input = User.OauthClient.Create(
+        let input = Oauth.Client.Create(
             name: "name",
             type: .app,
             redirectUri: "redirectUri",
@@ -111,7 +111,7 @@ final class OauthClientTests: TestCase {
     }
 
     func testUpdate() async throws {
-        let input = User.OauthClient.Create(
+        let input = Oauth.Client.Create(
             name: "name",
             type: .app,
             redirectUri: "redirectUri",

@@ -1,6 +1,6 @@
 import XCTest
 
-@testable import UserModuleKit
+@testable import OauthModuleKit
 
 final class OauthModuleInterfaceTests: XCTestCase {
 

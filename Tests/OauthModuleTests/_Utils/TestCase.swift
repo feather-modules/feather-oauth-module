@@ -9,23 +9,23 @@ import FeatherComponent
 import FeatherModuleKit
 import NIO
 import SystemModule
-import UserModule
-import UserModuleKit
-import UserModuleMigrationKit
+import OauthModule
+import OauthModuleKit
+import OauthModuleMigrationKit
 import XCTest
 
 class TestCase: XCTestCase {
 
     var eventLoopGroup: EventLoopGroup!
     var components: ComponentRegistry!
-    var module: UserModuleInterface!
+    var module: OauthModuleInterface!
 
     override func setUp() async throws {
         self.eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
         components = ComponentRegistry()
 
         let system = SystemModule(components: components)
-        module = UserModule(system: system, components: components)
+        module = OauthModule(system: system, components: components)
 
         try await components.configure(.singleton, eventLoopGroup)
         try await components.runMigrations()

@@ -4,11 +4,11 @@ import FeatherDatabaseDriverSQLite
 import Logging
 import NIO
 import SQLKit
-import UserModuleKit
-import UserModuleMigrationKit
+import OauthModuleKit
+import OauthModuleMigrationKit
 import XCTest
 
-@testable import UserModule
+@testable import OauthModule
 
 final class OauthModuleTests: XCTestCase {
 

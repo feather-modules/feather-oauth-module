@@ -9,5 +9,9 @@ public protocol AuthorizationCodeInterface: Sendable {
     func require(
         _ id: ID<Oauth.AuthorizationCode>
     ) async throws -> Oauth.AuthorizationCode.Detail
+    
+    func getByCode(
+        _ code: String
+    ) async throws -> Oauth.AuthorizationCode.Detail
 
 }

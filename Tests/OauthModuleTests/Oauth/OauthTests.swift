@@ -1,31 +1,31 @@
 import FeatherModuleKit
 import SystemModule
 import SystemModuleKit
-import UserModule
-import UserModuleKit
+import OauthModule
+import OauthModuleKit
 import XCTest
 
 final class OauthTests: TestCase {
 
     func testCheckBadClient() async throws {
         let client = try await addTestClient(.app)
-        let request = User.Oauth.AuthorizationGetRequest(
+        let request = Oauth.Flow.AuthorizationGetRequest(
             clientId: "client",
             redirectUri: client.redirectUri!,
             scope: "profile"
         )
 
         do {
-            _ = try await module.oauth.check(
+            _ = try await module.oauthFlow.check(
                 nil,
                 request.clientId,
                 nil,
                 request.redirectUri,
                 request.scope
             )
-            XCTFail("Test should fail with User.OauthError")
+            XCTFail("Test should fail with Oauth.FlowError")
         }
-        catch let error as User.OauthError {
+        catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 0"))
         }
         catch {
@@ -35,23 +35,23 @@ final class OauthTests: TestCase {
 
     func testCheckBadRedirectUri() async throws {
         let client = try await addTestClient(.app)
-        let request = User.Oauth.AuthorizationGetRequest(
+        let request = Oauth.Flow.AuthorizationGetRequest(
             clientId: client.id.rawValue,
             redirectUri: "localhost",
             scope: "profile"
         )
 
         do {
-            _ = try await module.oauth.check(
+            _ = try await module.oauthFlow.check(
                 nil,
                 request.clientId,
                 nil,
                 request.redirectUri,
                 request.scope
             )
-            XCTFail("Test should fail with User.OauthError")
+            XCTFail("Test should fail with Oauth.FlowError")
         }
-        catch let error as User.OauthError {
+        catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 1"))
         }
         catch {
@@ -61,23 +61,23 @@ final class OauthTests: TestCase {
 
     func testCheckBadScope() async throws {
         let client = try await addTestClient(.app)
-        let request = User.Oauth.AuthorizationGetRequest(
+        let request = Oauth.Flow.AuthorizationGetRequest(
             clientId: client.id.rawValue,
             redirectUri: client.redirectUri!,
             scope: "badScope"
         )
 
         do {
-            _ = try await module.oauth.check(
+            _ = try await module.oauthFlow.check(
                 nil,
                 request.clientId,
                 nil,
                 request.redirectUri,
                 request.scope
             )
-            XCTFail("Test should fail with User.OauthError")
+            XCTFail("Test should fail with Oauth.FlowError")
         }
-        catch let error as User.OauthError {
+        catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 3"))
         }
         catch {
@@ -87,13 +87,13 @@ final class OauthTests: TestCase {
 
     func testCheck() async throws {
         let client = try await addTestClient(.app)
-        let request = User.Oauth.AuthorizationGetRequest(
+        let request = Oauth.Flow.AuthorizationGetRequest(
             clientId: client.id.rawValue,
             redirectUri: client.redirectUri!,
             scope: "profile"
         )
 
-        _ = try await module.oauth.check(
+        _ = try await module.oauthFlow.check(
             nil,
             request.clientId,
             nil,
@@ -106,28 +106,27 @@ final class OauthTests: TestCase {
 
     func testGetCodeBadClient() async throws {
         let client = try await addTestClient(.app)
-        let user = try await createUser()
-
-        let request = User.Oauth.AuthorizationPostRequest(
+        
+        let request = Oauth.Flow.AuthorizationPostRequest(
             clientId: "client",
             redirectUri: client.redirectUri!,
             scope: "profile",
             state: "state",
-            accountId: user.id
+            userId: "userId"
         )
 
         do {
-            _ = try await module.oauth.check(
+            _ = try await module.oauthFlow.check(
                 nil,
                 request.clientId,
                 nil,
                 request.redirectUri,
                 request.scope
             )
-            _ = try await module.oauth.getCode(request)
-            XCTFail("Test should fail with User.OauthError")
+            _ = try await module.oauthFlow.getCode(request)
+            XCTFail("Test should fail with Oauth.FlowError")
         }
-        catch let error as User.OauthError {
+        catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 0"))
         }
         catch {
@@ -137,59 +136,28 @@ final class OauthTests: TestCase {
 
     func testGetCodeBadRedirectUri() async throws {
         let client = try await addTestClient(.app)
-        let user = try await createUser()
-
-        let request = User.Oauth.AuthorizationPostRequest(
+        
+        let request = Oauth.Flow.AuthorizationPostRequest(
             clientId: client.id.rawValue,
             redirectUri: "localhost",
             scope: "profile",
             state: "state",
-            accountId: user.id
+            userId: "userId"
         )
 
         do {
-            _ = try await module.oauth.check(
+            _ = try await module.oauthFlow.check(
                 nil,
                 request.clientId,
                 nil,
                 request.redirectUri,
                 request.scope
             )
-            _ = try await module.oauth.getCode(request)
-            XCTFail("Test should fail with User.OauthError")
+            _ = try await module.oauthFlow.getCode(request)
+            XCTFail("Test should fail with Oauth.FlowError")
         }
-        catch let error as User.OauthError {
+        catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 1"))
-        }
-        catch {
-            XCTFail("\(error)")
-        }
-    }
-
-    func testGetCodeBadAccount() async throws {
-        let client = try await addTestClient(.app)
-
-        let request = User.Oauth.AuthorizationPostRequest(
-            clientId: client.id.rawValue,
-            redirectUri: client.redirectUri!,
-            scope: "profile",
-            state: "state",
-            accountId: .init(rawValue: "badId")
-        )
-
-        do {
-            _ = try await module.oauth.check(
-                nil,
-                request.clientId,
-                nil,
-                request.redirectUri,
-                request.scope
-            )
-            _ = try await module.oauth.getCode(request)
-            XCTFail("Test should fail with User.OauthError")
-        }
-        catch let error as User.OauthError {
-            XCTAssertEqual(true, error.localizedDescription.contains("error 6"))
         }
         catch {
             XCTFail("\(error)")
@@ -198,24 +166,23 @@ final class OauthTests: TestCase {
 
     func testGetCode() async throws {
         let client = try await addTestClient(.app)
-        let user = try await createUser()
 
-        let request = User.Oauth.AuthorizationPostRequest(
+        let request = Oauth.Flow.AuthorizationPostRequest(
             clientId: client.id.rawValue,
             redirectUri: client.redirectUri!,
             scope: "profile",
             state: "state",
-            accountId: user.id
+            userId: "userId"
         )
 
-        _ = try await module.oauth.check(
+        _ = try await module.oauthFlow.check(
             nil,
             request.clientId,
             nil,
             request.redirectUri,
             request.scope
         )
-        let newCode = try await module.oauth.getCode(request)
+        let newCode = try await module.oauthFlow.getCode(request)
         XCTAssertEqual(true, newCode.count > 0)
     }
 
@@ -228,7 +195,7 @@ final class OauthTests: TestCase {
             client.redirectUri!
         )
 
-        let request = User.Oauth.JwtRequest(
+        let request = Oauth.Flow.JwtRequest(
             grantType: .authorization,
             clientId: "client",
             clientSecret: nil,
@@ -238,17 +205,17 @@ final class OauthTests: TestCase {
         )
 
         do {
-            _ = try await module.oauth.check(
+            _ = try await module.oauthFlow.check(
                 request.grantType,
                 request.clientId,
                 nil,
                 request.redirectUri,
                 nil
             )
-            _ = try await module.oauth.getJWT(request)
-            XCTFail("Test should fail with User.OauthError")
+            _ = try await module.oauthFlow.getJWT(request, userData: nil)
+            XCTFail("Test should fail with Oauth.FlowError")
         }
-        catch let error as User.OauthError {
+        catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 0"))
         }
         catch {
@@ -263,7 +230,7 @@ final class OauthTests: TestCase {
             client.redirectUri!
         )
 
-        let request = User.Oauth.JwtRequest(
+        let request = Oauth.Flow.JwtRequest(
             grantType: .authorization,
             clientId: client.id.rawValue,
             clientSecret: nil,
@@ -273,17 +240,17 @@ final class OauthTests: TestCase {
         )
 
         do {
-            _ = try await module.oauth.check(
+            _ = try await module.oauthFlow.check(
                 request.grantType,
                 request.clientId,
                 nil,
                 request.redirectUri,
                 nil
             )
-            _ = try await module.oauth.getJWT(request)
-            XCTFail("Test should fail with User.OauthError")
+            _ = try await module.oauthFlow.getJWT(request, userData: nil)
+            XCTFail("Test should fail with Oauth.FlowError")
         }
-        catch let error as User.OauthError {
+        catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 1"))
         }
         catch {
@@ -298,7 +265,7 @@ final class OauthTests: TestCase {
             client.redirectUri!
         )
 
-        let request = User.Oauth.JwtRequest(
+        let request = Oauth.Flow.JwtRequest(
             grantType: .authorization,
             clientId: client.id.rawValue,
             clientSecret: nil,
@@ -308,17 +275,17 @@ final class OauthTests: TestCase {
         )
 
         do {
-            _ = try await module.oauth.check(
+            _ = try await module.oauthFlow.check(
                 request.grantType,
                 request.clientId,
                 nil,
                 request.redirectUri,
                 nil
             )
-            _ = try await module.oauth.getJWT(request)
-            XCTFail("Test should fail with User.OauthError")
+            _ = try await module.oauthFlow.getJWT(request, userData: nil)
+            XCTFail("Test should fail with Oauth.FlowError")
         }
-        catch let error as User.OauthError {
+        catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 4"))
         }
         catch {
@@ -333,7 +300,7 @@ final class OauthTests: TestCase {
             client.redirectUri!
         )
 
-        let request = User.Oauth.JwtRequest(
+        let request = Oauth.Flow.JwtRequest(
             grantType: .authorization,
             clientId: client.id.rawValue,
             clientSecret: nil,
@@ -341,14 +308,14 @@ final class OauthTests: TestCase {
             redirectUri: client.redirectUri,
             scope: nil
         )
-        _ = try await module.oauth.check(
+        _ = try await module.oauthFlow.check(
             request.grantType,
             request.clientId,
             nil,
             request.redirectUri,
             nil
         )
-        _ = try await module.oauth.getJWT(request)
+        _ = try await module.oauthFlow.getJWT(request, userData: nil)
     }
 
     // MARK: test server credentials
@@ -356,7 +323,7 @@ final class OauthTests: TestCase {
     func testServerCredentialsBadClient() async throws {
         let client = try await addTestClient(.server)
 
-        let request = User.Oauth.JwtRequest(
+        let request = Oauth.Flow.JwtRequest(
             grantType: .clientCredentials,
             clientId: "badClient",
             clientSecret: client.clientSecret,
@@ -366,17 +333,17 @@ final class OauthTests: TestCase {
         )
 
         do {
-            _ = try await module.oauth.check(
+            _ = try await module.oauthFlow.check(
                 request.grantType,
                 request.clientId,
                 request.clientSecret,
                 request.redirectUri,
                 request.scope
             )
-            _ = try await module.oauth.getJWT(request)
-            XCTFail("Test should fail with User.OauthError")
+            _ = try await module.oauthFlow.getJWT(request, userData: nil)
+            XCTFail("Test should fail with Oauth.FlowError")
         }
-        catch let error as User.OauthError {
+        catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 0"))
         }
         catch {
@@ -387,7 +354,7 @@ final class OauthTests: TestCase {
     func testServerCredentialsBadSecret() async throws {
         let client = try await addTestClient(.server)
 
-        let request = User.Oauth.JwtRequest(
+        let request = Oauth.Flow.JwtRequest(
             grantType: .clientCredentials,
             clientId: client.id.rawValue,
             clientSecret: "badSecret",
@@ -397,17 +364,17 @@ final class OauthTests: TestCase {
         )
 
         do {
-            _ = try await module.oauth.check(
+            _ = try await module.oauthFlow.check(
                 request.grantType,
                 request.clientId,
                 request.clientSecret,
                 request.redirectUri,
                 request.scope
             )
-            _ = try await module.oauth.getJWT(request)
-            XCTFail("Test should fail with User.OauthError")
+            _ = try await module.oauthFlow.getJWT(request, userData: nil)
+            XCTFail("Test should fail with Oauth.FlowError")
         }
-        catch let error as User.OauthError {
+        catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 0"))
         }
         catch {
@@ -418,7 +385,7 @@ final class OauthTests: TestCase {
     func testServerCredentialsBadScope() async throws {
         let client = try await addTestClient(.server)
 
-        let request = User.Oauth.JwtRequest(
+        let request = Oauth.Flow.JwtRequest(
             grantType: .clientCredentials,
             clientId: client.id.rawValue,
             clientSecret: client.clientSecret,
@@ -428,17 +395,17 @@ final class OauthTests: TestCase {
         )
 
         do {
-            _ = try await module.oauth.check(
+            _ = try await module.oauthFlow.check(
                 request.grantType,
                 request.clientId,
                 request.clientSecret,
                 request.redirectUri,
                 request.scope
             )
-            _ = try await module.oauth.getJWT(request)
-            XCTFail("Test should fail with User.OauthError")
+            _ = try await module.oauthFlow.getJWT(request, userData: nil)
+            XCTFail("Test should fail with Oauth.FlowError")
         }
-        catch let error as User.OauthError {
+        catch let error as Oauth.Error {
             XCTAssertEqual(true, error.localizedDescription.contains("error 3"))
         }
         catch {
@@ -449,7 +416,7 @@ final class OauthTests: TestCase {
     func testServerCredentials() async throws {
         let client = try await addTestClient(.server)
 
-        let request = User.Oauth.JwtRequest(
+        let request = Oauth.Flow.JwtRequest(
             grantType: .clientCredentials,
             clientId: client.id.rawValue,
             clientSecret: client.clientSecret,
@@ -458,14 +425,14 @@ final class OauthTests: TestCase {
             scope: "server"
         )
 
-        _ = try await module.oauth.check(
+        _ = try await module.oauthFlow.check(
             request.grantType,
             request.clientId,
             request.clientSecret,
             request.redirectUri,
             request.scope
         )
-        _ = try await module.oauth.getJWT(request)
+        _ = try await module.oauthFlow.getJWT(request, userData: nil)
     }
 
     // MARK: private
@@ -474,36 +441,20 @@ final class OauthTests: TestCase {
         _ clientId: String,
         _ redirectUri: String
     ) async throws -> String {
-        let user = try await createUser()
-        let request = User.Oauth.AuthorizationPostRequest(
+        let request = Oauth.Flow.AuthorizationPostRequest(
             clientId: clientId,
             redirectUri: redirectUri,
             scope: "profile",
             state: "state",
-            accountId: user.id
+            userId: "userId"
         )
-        return try await module.oauth.getCode(request)
+        return try await module.oauthFlow.getCode(request)
     }
 
-    private func createUser() async throws -> User.Account.Detail {
-        let email = "test@user.com"
-        let password = "ChangeMe1"
-
-        return try await module.account.create(
-            User.Account.Create(
-                email: email,
-                password: password,
-                firstName: "firstName",
-                lastName: "lastName",
-                imageKey: "imageKey"
-            )
-        )
-    }
-
-    private func addTestClient(_ clientType: User.OauthClient.ClientType)
-        async throws -> User.OauthClient.Detail
+    private func addTestClient(_ clientType: Oauth.Client.ClientType)
+        async throws -> Oauth.Client.Detail
     {
-        var roleKeys: [ID<User.OauthRole>]? = nil
+        var roleKeys: [ID<Oauth.Role>]? = nil
         if clientType == .server {
             let role = try await module.oauthRole.create(
                 .init(

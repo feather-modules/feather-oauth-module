@@ -8,26 +8,44 @@ extension Oauth.Flow {
         case authorization = "authorization_code"
         case clientCredentials = "client_credentials"
     }
+    
+    public struct UserData {
+        public var roles: [String]
+        public var permissions: [String]
+        
+        public init(
+            roles: [String],
+            permissions: [String]
+        ) {
+           
+            self.roles = roles
+            self.permissions = permissions
+        }
+    }
+    
 
     public struct Payload: JWTPayload, Equatable {
         public var iss: IssuerClaim
         public var sub: SubjectClaim?
         public var aud: AudienceClaim
         public var exp: ExpirationClaim
-        public var userData: [String: String]?
+        public var roles: [String]?
+        public var permissions: [String]?
 
         public init(
             iss: IssuerClaim,
             sub: SubjectClaim? = nil,
             aud: AudienceClaim,
             exp: ExpirationClaim,
-            userData: [String: String]? = nil
+            roles: [String]? = nil,
+            permissions: [String]? = nil
         ) {
             self.iss = iss
             self.sub = sub
             self.aud = aud
             self.exp = exp
-            self.userData = userData
+            self.roles = roles
+            self.permissions = permissions
         }
 
         public func verify(using algorithm: some JWTKit.JWTAlgorithm)

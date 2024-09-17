@@ -13,7 +13,7 @@ public protocol OauthFlowInterface: Sendable {
     func getCode(_ request: Oauth.Flow.AuthorizationPostRequest) async throws
         -> String
 
-    func getJWT(_ request: Oauth.Flow.JwtRequest, userData: [String: String]?) async throws
+    func getJWT(_ request: Oauth.Flow.JwtRequest, userData: Oauth.Flow.UserData?) async throws
         -> Oauth.Flow.JwtResponse
 
 }

@@ -68,6 +68,29 @@ struct AuthorizationCodeController: AuthorizationCodeInterface {
         }
         return model.toDetail()
     }
+    
+    func getByCode(
+        _ code: String
+    ) async throws -> Oauth.AuthorizationCode.Detail {
+        
+        let db = try await components.database().connection()
+        guard
+            let model = try await Oauth.AuthorizationCode.Query.getFirst(
+                filter: .init(
+                    column: .value,
+                    operator: .is,
+                    value: code
+                ),
+                on: db
+            )
+        else {
+            throw ModuleError.objectNotFound(
+                model: String(reflecting: Oauth.AuthorizationCode.Model.self),
+                keyName: Oauth.AuthorizationCode.Model.keyName.rawValue
+            )
+        }
+        return model.toDetail()
+    }
 
 }
 

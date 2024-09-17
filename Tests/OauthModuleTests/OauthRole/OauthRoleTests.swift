@@ -1,16 +1,16 @@
 import FeatherModuleKit
 import FeatherValidation
 import SystemModuleKit
-import UserModule
-import UserModuleKit
+import OauthModule
+import OauthModuleKit
 import XCTest
 
-extension User.OauthRole.Create {
+extension Oauth.Role.Create {
 
     static func mock(
         _ i: Int = 1,
         permissionKeys: [ID<System.Permission>] = []
-    ) -> User.OauthRole.Create {
+    ) -> Oauth.Role.Create {
         .init(
             key: .init(rawValue: "key\(i)"),
             name: "name-\(i)",

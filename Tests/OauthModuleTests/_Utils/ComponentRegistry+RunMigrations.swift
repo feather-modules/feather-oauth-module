@@ -9,8 +9,8 @@ import FeatherComponent
 import FeatherScripts
 import SystemModuleKit
 import SystemModuleMigrationKit
-import UserModuleKit
-import UserModuleMigrationKit
+import OauthModuleKit
+import OauthModuleMigrationKit
 
 extension ComponentRegistry {
 
@@ -22,7 +22,7 @@ extension ComponentRegistry {
         )
 
         try await scripts.execute([
-            User.Migrations.V1.self
+            Oauth.Migrations.V1.self
         ])
 
         try await scripts.execute([

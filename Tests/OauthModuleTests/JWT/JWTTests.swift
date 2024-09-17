@@ -1,7 +1,7 @@
 import Crypto
 import Foundation
 import JWTKit
-import UserModuleKit
+import OauthModuleKit
 import XCTest
 
 final class JWTTests: XCTestCase {
@@ -34,7 +34,7 @@ final class JWTTests: XCTestCase {
                 eddsa: privateKey,
                 kid: kid
             )
-        let payload = User.Oauth.Payload(
+        let payload = Oauth.Flow.Payload(
             iss: IssuerClaim(value: "issuer"),
             aud: AudienceClaim(value: ["audience"]),
             exp: ExpirationClaim(value: Date().addingTimeInterval(60))
@@ -62,7 +62,7 @@ final class JWTTests: XCTestCase {
                 kid: kid
             )
 
-        let payload = User.Oauth.Payload(
+        let payload = Oauth.Flow.Payload(
             iss: IssuerClaim(value: "issuer"),
             aud: AudienceClaim(value: ["audience"]),
             exp: ExpirationClaim(value: Date().addingTimeInterval(60))
@@ -71,7 +71,7 @@ final class JWTTests: XCTestCase {
 
         let verifier = await JWTKeyCollection()
             .add(eddsa: publicKey)
-        _ = try await verifier.verify(jwt, as: User.Oauth.Payload.self)
+        _ = try await verifier.verify(jwt, as: Oauth.Flow.Payload.self)
     }
 
     func testSignAndVerifyWithPrivateKey() async throws {
@@ -88,7 +88,7 @@ final class JWTTests: XCTestCase {
                 kid: kid
             )
 
-        let payload = User.Oauth.Payload(
+        let payload = Oauth.Flow.Payload(
             iss: IssuerClaim(value: "issuer"),
             aud: AudienceClaim(value: ["audience"]),
             exp: ExpirationClaim(value: Date().addingTimeInterval(60))
@@ -97,7 +97,7 @@ final class JWTTests: XCTestCase {
 
         let verifier = await JWTKeyCollection()
             .add(eddsa: privateKey)
-        _ = try await verifier.verify(jwt, as: User.Oauth.Payload.self)
+        _ = try await verifier.verify(jwt, as: Oauth.Flow.Payload.self)
     }
 
 }

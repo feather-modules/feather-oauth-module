@@ -69,17 +69,6 @@ struct OauthFlowController: OauthFlowInterface {
     func getCode(_ request: Oauth.Flow.AuthorizationPostRequest) async throws
         -> String
     {
-
-        let db = try await components.database().connection()
-
-        // TODO: do not check account here
-        /*guard
-            (try await Oauth.Account.Query.get(request.userID, on: db))
-                != nil
-        else {
-            throw Oauth.Error.unauthorizedClient
-        }*/
-
         // create and save new code
         let detail = try await oauth.authorizationCode.create(
             .init(
@@ -94,7 +83,7 @@ struct OauthFlowController: OauthFlowInterface {
         return detail.value
     }
 
-    func getJWT(_ request: Oauth.Flow.JwtRequest, userData: [String: String]? = nil) async throws
+    func getJWT(_ request: Oauth.Flow.JwtRequest, userData: Oauth.Flow.UserData? = nil) async throws
         -> Oauth.Flow.JwtResponse
     {
         let db = try await components.database().connection()
@@ -170,21 +159,10 @@ struct OauthFlowController: OauthFlowInterface {
         // delete code so it can not be used again
         try await deleteCode(authorizationCode.value, db)
 
-        // TODO: do not check account here
-        /*guard
-            let account = try await Oauth.Account.Query.get(
-                authorizationCode.accountId,
-                on: db
-            )
-        else {
-            throw Oauth.ObjectError.unauthorizedClient
-        }*/
-
         // create jwt
         let keyCollection = try await getKeyCollection(privateKeyBase64, kid)
-        //let data = try await account.id.toID()
-        //    .getRolesAndPermissonsForId(user, db)
-
+        
+        
         let payload = Oauth.Flow.Payload(
             iss: IssuerClaim(value: oauthClient.issuer),
             sub: SubjectClaim(value: authorizationCode.userId),
@@ -193,9 +171,8 @@ struct OauthFlowController: OauthFlowInterface {
             exp: ExpirationClaim(
                 value: Date().addingTimeInterval(TimeInterval(interval))
             ),
-            userData: userData
-            //roles: data.0.map { $0.key.rawValue },
-            //permissions: data.1.map { $0.rawValue }
+            roles: userData?.roles,
+            permissions: userData?.permissions
         )
         let jwt = try await keyCollection.sign(payload, kid: kid)
 
