@@ -1,0 +1,284 @@
+{
+  "pins" : [
+    {
+      "identity" : "async-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/async-kit.git",
+      "state" : {
+        "revision" : "7ece208cd401687641c88367a00e3ea2b04311f1",
+        "version" : "1.19.0"
+      }
+    },
+    {
+      "identity" : "bigint",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/attaswift/BigInt.git",
+      "state" : {
+        "revision" : "793a7fac0bfc318e85994bf6900652e827aef33e",
+        "version" : "5.4.1"
+      }
+    },
+    {
+      "identity" : "feather-access-control",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-framework/feather-access-control",
+      "state" : {
+        "revision" : "4bc81ea602cc3a0bb0d151f3b9d9df369f173232",
+        "version" : "0.2.0"
+      }
+    },
+    {
+      "identity" : "feather-component",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-framework/feather-component",
+      "state" : {
+        "revision" : "c209d87352d27afc124422db11c9ca2bb0f7a376",
+        "version" : "0.5.0"
+      }
+    },
+    {
+      "identity" : "feather-database",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-framework/feather-database",
+      "state" : {
+        "revision" : "0c2bf4e9c9861cb27e19d437c90200509e72359d",
+        "version" : "0.4.4"
+      }
+    },
+    {
+      "identity" : "feather-database-driver-sqlite",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-framework/feather-database-driver-sqlite",
+      "state" : {
+        "revision" : "0f614d381f8815ddb081e20359d85a70fd3c1086",
+        "version" : "0.4.0"
+      }
+    },
+    {
+      "identity" : "feather-mail",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-framework/feather-mail",
+      "state" : {
+        "revision" : "cd8151198fa22920e949f890a61602f0b7f532fe",
+        "version" : "0.5.0"
+      }
+    },
+    {
+      "identity" : "feather-mail-driver-memory",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-framework/feather-mail-driver-memory",
+      "state" : {
+        "revision" : "e69594114bfd61aeb542dd35d3ca6ca821283274",
+        "version" : "0.3.0"
+      }
+    },
+    {
+      "identity" : "feather-module-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-framework/feather-module-kit",
+      "state" : {
+        "revision" : "51e0610c24a40b47f9c1fcb64baea45f4d634d02",
+        "version" : "0.5.0"
+      }
+    },
+    {
+      "identity" : "feather-push",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-framework/feather-push",
+      "state" : {
+        "revision" : "7f53ae4144b18a9848ef3f5799420f59cfe30c95",
+        "version" : "0.4.0"
+      }
+    },
+    {
+      "identity" : "feather-push-driver-memory",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-framework/feather-push-driver-memory",
+      "state" : {
+        "revision" : "d2882ec7e633c5602363f07cf4eb8b13a26c14f8",
+        "version" : "0.4.0"
+      }
+    },
+    {
+      "identity" : "feather-scripts",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-framework/feather-scripts",
+      "state" : {
+        "revision" : "1cd699110addb0fd8d27ef662e5fcb326ff29852",
+        "version" : "0.1.0"
+      }
+    },
+    {
+      "identity" : "feather-storage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-framework/feather-storage",
+      "state" : {
+        "revision" : "c30a691516cf8b2956116f00732b99c639083af8",
+        "version" : "0.5.0"
+      }
+    },
+    {
+      "identity" : "feather-system-module",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-modules/feather-system-module",
+      "state" : {
+        "revision" : "d76ffd9b28d4355cd7904d56138d6223433e8751",
+        "version" : "0.17.0"
+      }
+    },
+    {
+      "identity" : "feather-validation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-framework/feather-validation",
+      "state" : {
+        "revision" : "0534053c786821da100ee5c82e2fcd48907e1529",
+        "version" : "0.1.1"
+      }
+    },
+    {
+      "identity" : "jwt-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/jwt-kit.git",
+      "state" : {
+        "revision" : "831fe3c82ce5e827eef12a0abccc7c0e153dae8c",
+        "version" : "5.0.0-rc.2"
+      }
+    },
+    {
+      "identity" : "sql-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/sql-kit",
+      "state" : {
+        "revision" : "b97168805638b9f92d4f04b17cc23f0d1f928c79",
+        "version" : "3.29.2"
+      }
+    },
+    {
+      "identity" : "sqlite-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/sqlite-kit",
+      "state" : {
+        "revision" : "e9fd69b54b04acf9ea94d3ba174195d20a07370f",
+        "version" : "4.4.2"
+      }
+    },
+    {
+      "identity" : "sqlite-nio",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/sqlite-nio.git",
+      "state" : {
+        "revision" : "e79d223ab3705de4c1e8903961829b5d0098c820",
+        "version" : "1.8.8"
+      }
+    },
+    {
+      "identity" : "swift-algorithms",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-algorithms",
+      "state" : {
+        "revision" : "f6919dfc309e7f1b56224378b11e28bab5bccc42",
+        "version" : "1.2.0"
+      }
+    },
+    {
+      "identity" : "swift-asn1",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-asn1.git",
+      "state" : {
+        "revision" : "df5d2fcd22e3f480e3ef85bf23e277a4a0ef524d",
+        "version" : "1.2.0"
+      }
+    },
+    {
+      "identity" : "swift-atomics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-atomics.git",
+      "state" : {
+        "revision" : "cd142fd2f64be2100422d658e7411e39489da985",
+        "version" : "1.2.0"
+      }
+    },
+    {
+      "identity" : "swift-bcrypt",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/binarybirds/swift-bcrypt",
+      "state" : {
+        "revision" : "460222896b8f6783d97fa2abce31f97888dc8c37",
+        "version" : "1.0.2"
+      }
+    },
+    {
+      "identity" : "swift-certificates",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-certificates.git",
+      "state" : {
+        "revision" : "2f797305c1b5b982acaa6005d8a9f970cc4e97ff",
+        "version" : "1.5.0"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : {
+        "revision" : "94cf62b3ba8d4bed62680a282d4c25f9c63c2efb",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "swift-crypto",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-crypto.git",
+      "state" : {
+        "revision" : "9f95b4d033a4edd3814b48608db3f2ca90c7218b",
+        "version" : "3.7.0"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log",
+      "state" : {
+        "revision" : "e97a6fcb1ab07462881ac165fdbb37f067e205d5",
+        "version" : "1.5.4"
+      }
+    },
+    {
+      "identity" : "swift-nanoid",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/binarybirds/swift-nanoid",
+      "state" : {
+        "revision" : "a7ec5dde163e607ea5fbd473eb5a58908d043eed",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swift-nio",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-nio",
+      "state" : {
+        "revision" : "359c461e5561d22c6334828806cc25d759ca7aa6",
+        "version" : "2.65.0"
+      }
+    },
+    {
+      "identity" : "swift-numerics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-numerics.git",
+      "state" : {
+        "revision" : "0a5bc04095a675662cf24757cc0640aa2204253b",
+        "version" : "1.0.2"
+      }
+    },
+    {
+      "identity" : "swift-system",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-system.git",
+      "state" : {
+        "revision" : "025bcb1165deab2e20d4eaba79967ce73013f496",
+        "version" : "1.2.1"
+      }
+    }
+  ],
+  "version" : 2
+}
