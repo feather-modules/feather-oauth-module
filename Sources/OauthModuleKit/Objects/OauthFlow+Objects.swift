@@ -8,21 +8,20 @@ extension Oauth.Flow {
         case authorization = "authorization_code"
         case clientCredentials = "client_credentials"
     }
-    
+
     public struct UserData {
         public var roles: [String]
         public var permissions: [String]
-        
+
         public init(
             roles: [String],
             permissions: [String]
         ) {
-           
+
             self.roles = roles
             self.permissions = permissions
         }
     }
-    
 
     public struct Payload: JWTPayload, Equatable {
         public var iss: IssuerClaim

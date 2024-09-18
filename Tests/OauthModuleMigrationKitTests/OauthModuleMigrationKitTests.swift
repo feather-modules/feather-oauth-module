@@ -1,8 +1,8 @@
 import FeatherDatabase
-import SystemModuleDatabaseKit
-import SystemModuleKit
 import OauthModuleDatabaseKit
 import OauthModuleKit
+import SystemModuleDatabaseKit
+import SystemModuleKit
 import XCTest
 
 @testable import UserModuleMigrationKit

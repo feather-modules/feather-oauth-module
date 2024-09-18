@@ -3,9 +3,9 @@ import FeatherDatabase
 import FeatherDatabaseDriverSQLite
 import Logging
 import NIO
-import SQLKit
 import OauthModuleKit
 import OauthModuleMigrationKit
+import SQLKit
 import XCTest
 
 @testable import OauthModule

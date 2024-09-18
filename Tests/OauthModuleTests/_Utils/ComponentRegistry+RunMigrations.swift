@@ -7,10 +7,10 @@
 
 import FeatherComponent
 import FeatherScripts
-import SystemModuleKit
-import SystemModuleMigrationKit
 import OauthModuleKit
 import OauthModuleMigrationKit
+import SystemModuleKit
+import SystemModuleMigrationKit
 
 extension ComponentRegistry {
 

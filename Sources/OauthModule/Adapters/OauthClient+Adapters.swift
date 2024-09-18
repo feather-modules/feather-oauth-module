@@ -12,8 +12,7 @@ import OauthModuleDatabaseKit
 import OauthModuleKit
 
 extension Oauth.Client.Model.ColumnNames: ListQuerySortKeyAdapter {
-    public init(listQuerySortKeys: Oauth.Client.List.Query.Sort.Key) throws
-    {
+    public init(listQuerySortKeys: Oauth.Client.List.Query.Sort.Key) throws {
         switch listQuerySortKeys {
         case .name:
             self = .name

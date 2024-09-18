@@ -1,8 +1,8 @@
 import FeatherComponent
 import FeatherModuleKit
 import Logging
-import SystemModuleKit
 import OauthModuleKit
+import SystemModuleKit
 
 public struct OauthModule: OauthModuleInterface {
 
@@ -19,7 +19,6 @@ public struct OauthModule: OauthModuleInterface {
         self.components = components
         self.logger = logger
     }
-
 
     public var oauthFlow: OauthFlowInterface {
         OauthFlowController(

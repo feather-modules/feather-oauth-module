@@ -1,8 +1,8 @@
 import FeatherModuleKit
-import SystemModule
-import SystemModuleKit
 import OauthModule
 import OauthModuleKit
+import SystemModule
+import SystemModuleKit
 import XCTest
 
 final class OauthTests: TestCase {
@@ -106,7 +106,7 @@ final class OauthTests: TestCase {
 
     func testGetCodeBadClient() async throws {
         let client = try await addTestClient(.app)
-        
+
         let request = Oauth.Flow.AuthorizationPostRequest(
             clientId: "client",
             redirectUri: client.redirectUri!,
@@ -136,7 +136,7 @@ final class OauthTests: TestCase {
 
     func testGetCodeBadRedirectUri() async throws {
         let client = try await addTestClient(.app)
-        
+
         let request = Oauth.Flow.AuthorizationPostRequest(
             clientId: client.id.rawValue,
             redirectUri: "localhost",
@@ -163,36 +163,36 @@ final class OauthTests: TestCase {
             XCTFail("\(error)")
         }
     }
-    
+
     func testGetCodeEmptyAccount() async throws {
-            let client = try await addTestClient(.app)
+        let client = try await addTestClient(.app)
 
-            let request = Oauth.Flow.AuthorizationPostRequest(
-                clientId: client.id.rawValue,
-                redirectUri: client.redirectUri!,
-                scope: "profile",
-                state: "state",
-                userId: ""
+        let request = Oauth.Flow.AuthorizationPostRequest(
+            clientId: client.id.rawValue,
+            redirectUri: client.redirectUri!,
+            scope: "profile",
+            state: "state",
+            userId: ""
+        )
+
+        do {
+            _ = try await module.oauthFlow.check(
+                nil,
+                request.clientId,
+                nil,
+                request.redirectUri,
+                request.scope
             )
-
-            do {
-                _ = try await module.oauthFlow.check(
-                    nil,
-                    request.clientId,
-                    nil,
-                    request.redirectUri,
-                    request.scope
-                )
-                _ = try await module.oauthFlow.getCode(request)
-                XCTFail("Test should fail with Oauth.Error")
-            }
-            catch let error as Oauth.Error {
-                XCTAssertEqual(true, error.localizedDescription.contains("error 6"))
-            }
-            catch {
-                XCTFail("\(error)")
-            }
+            _ = try await module.oauthFlow.getCode(request)
+            XCTFail("Test should fail with Oauth.Error")
         }
+        catch let error as Oauth.Error {
+            XCTAssertEqual(true, error.localizedDescription.contains("error 6"))
+        }
+        catch {
+            XCTFail("\(error)")
+        }
+    }
 
     func testGetCode() async throws {
         let client = try await addTestClient(.app)

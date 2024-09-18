@@ -10,8 +10,8 @@ import FeatherDatabase
 import FeatherModuleKit
 import Foundation
 import NanoID
-import SQLKit
 import OauthModuleKit
+import SQLKit
 
 struct AuthorizationCodeController: AuthorizationCodeInterface {
 
@@ -68,11 +68,11 @@ struct AuthorizationCodeController: AuthorizationCodeInterface {
         }
         return model.toDetail()
     }
-    
+
     func getByCode(
         _ code: String
     ) async throws -> Oauth.AuthorizationCode.Detail {
-        
+
         let db = try await components.database().connection()
         guard
             let model = try await Oauth.AuthorizationCode.Query.getFirst(

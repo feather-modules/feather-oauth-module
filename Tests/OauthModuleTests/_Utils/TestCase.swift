@@ -8,10 +8,10 @@
 import FeatherComponent
 import FeatherModuleKit
 import NIO
-import SystemModule
 import OauthModule
 import OauthModuleKit
 import OauthModuleMigrationKit
+import SystemModule
 import XCTest
 
 class TestCase: XCTestCase {

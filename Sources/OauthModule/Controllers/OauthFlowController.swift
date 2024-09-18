@@ -69,12 +69,12 @@ struct OauthFlowController: OauthFlowInterface {
     func getCode(_ request: Oauth.Flow.AuthorizationPostRequest) async throws
         -> String
     {
-        
+
         // check if userId is empty
         if request.userId.isEmpty {
             throw Oauth.Error.unauthorizedClient
         }
-        
+
         // create and save new code
         let detail = try await oauth.authorizationCode.create(
             .init(
@@ -89,7 +89,10 @@ struct OauthFlowController: OauthFlowInterface {
         return detail.value
     }
 
-    func getJWT(_ request: Oauth.Flow.JwtRequest, userData: Oauth.Flow.UserData? = nil) async throws
+    func getJWT(
+        _ request: Oauth.Flow.JwtRequest,
+        userData: Oauth.Flow.UserData? = nil
+    ) async throws
         -> Oauth.Flow.JwtResponse
     {
         let db = try await components.database().connection()
@@ -167,8 +170,7 @@ struct OauthFlowController: OauthFlowInterface {
 
         // create jwt
         let keyCollection = try await getKeyCollection(privateKeyBase64, kid)
-        
-        
+
         let payload = Oauth.Flow.Payload(
             iss: IssuerClaim(value: oauthClient.issuer),
             sub: SubjectClaim(value: authorizationCode.userId),

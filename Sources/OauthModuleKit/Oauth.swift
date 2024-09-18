@@ -22,7 +22,7 @@ public enum Oauth {
 
         public static var all: [FeatherACL.Permission] {
             Client.ACL.all
-            + Role.ACL.all
+                + Role.ACL.all
         }
     }
 

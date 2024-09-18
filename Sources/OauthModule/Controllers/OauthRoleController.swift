@@ -9,8 +9,8 @@ import FeatherDatabase
 import FeatherModuleKit
 import FeatherValidation
 import Logging
-import SystemModuleKit
 import OauthModuleKit
+import SystemModuleKit
 
 struct OauthRoleController: OauthRoleInterface,
     ControllerDelete,
@@ -38,8 +38,7 @@ struct OauthRoleController: OauthRoleInterface,
             .key, .name,
         ]
 
-    func create(_ input: Oauth.Role.Create) async throws -> Oauth.Role.Detail
-    {
+    func create(_ input: Oauth.Role.Create) async throws -> Oauth.Role.Detail {
         let db = try await components.database().connection()
         try await input.validate(on: db)
 
@@ -58,8 +57,7 @@ struct OauthRoleController: OauthRoleInterface,
         return try await getRoleBy(id: model.key.toID(), db)
     }
 
-    func require(_ id: ID<Oauth.Role>) async throws -> Oauth.Role.Detail
-    {
+    func require(_ id: ID<Oauth.Role>) async throws -> Oauth.Role.Detail {
         let db = try await components.database().connection()
         return try await getRoleBy(id: id, db)
     }

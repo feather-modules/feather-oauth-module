@@ -1,6 +1,6 @@
 import FeatherDatabase
-import SystemModuleKit
 import OauthModuleKit
+import SystemModuleKit
 
 extension Oauth.RolePermission {
 
